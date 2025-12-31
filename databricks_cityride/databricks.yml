@@ -28,10 +28,24 @@ targets:
     variables:
       catalog: citybike_dev
       schema: ${workspace.current_user.short_name}
+
+  test:
+    mode: production
+    workspace:
+      host: https://adb-7405617909562397.17.azuredatabricks.net
+      # We explicitly deploy to /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: citybike_dev
+      schema: prod
+    permissions:
+      - user_name: shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com
+        level: CAN_MANAGE
+
   prod:
     mode: production
     workspace:
-      host: https://adb-7405608667705126.6.azuredatabricks.net
+      host: https://adb-7405612008039338.18.azuredatabricks.net
       # We explicitly deploy to /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com to make sure we only have a single copy.
       root_path: /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
     variables:
