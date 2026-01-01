@@ -1,0 +1,30 @@
+name: Run Unit Test
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  run_tests:
+    name: Run UTC
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup python
+        uses: actions/setup-python@v6.1.0
+        with:
+          python-version: 3.11
+
+      - name: checkout code 
+        uses: actions/checkout@v6.0.1
+
+      - name: download dependencies
+        run: |
+          pip install -r requirements-pytest.txt
+
+      - name: run tests
+        run: |
+          pytest
