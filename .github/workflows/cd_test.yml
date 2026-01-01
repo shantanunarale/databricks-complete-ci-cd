@@ -34,6 +34,7 @@ jobs:
 
       - name: Deploy to Test
         run: |
+          cd databricks_cityride
           databricks bundle deploy -t test --profile test
           
         
