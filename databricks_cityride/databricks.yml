@@ -36,7 +36,7 @@ targets:
       # We explicitly deploy to /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com to make sure we only have a single copy.
       root_path: /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: citybike_dev
+      catalog: citybike_test
       schema: prod
     permissions:
       - user_name: shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com
@@ -49,7 +49,7 @@ targets:
       # We explicitly deploy to /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com to make sure we only have a single copy.
       root_path: /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: citybike_dev
+      catalog: citybike_prod
       schema: prod
     permissions:
       - user_name: shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com
