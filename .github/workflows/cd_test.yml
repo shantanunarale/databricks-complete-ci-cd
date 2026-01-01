@@ -1,0 +1,39 @@
+name: Deploy to Test
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  cd-deploy-test:
+    name: Deploy to Test
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: setup python
+        uses: actions/setup-python@v6.1.0
+        with:
+          python-version:: 3.11
+
+      - name: Install Databricks CLI
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Configure CLI
+        run: |
+          cat <<EOF>> ~/.databrickscfg
+          [test]
+          host      = https://adb-7405617909562397.17.azuredatabricks.net/
+          azure_client_id = ${{ secrets.AZURE_CLIENT_ID }}
+          azure_tenant_id = ${{ secrets.AZURE_TENANT_ID }}
+          azure_client_secret = ${{secrets.AZURE_CLIENT_SECRET }}
+          EOF
+
+      - name: Deploy to Test
+        run: |
+          databricks bundle deploy --t test --profile test
+          
+        
