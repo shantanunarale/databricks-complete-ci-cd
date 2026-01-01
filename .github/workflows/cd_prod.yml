@@ -7,7 +7,7 @@ on:
 
 jobs:
   cd-deploy-test:
-    name: Deploy to Test
+    name: Deploy to Prod
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -32,7 +32,7 @@ jobs:
           azure_client_secret = ${{secrets.AZURE_CLIENT_SECRET }}
           EOF
 
-      - name: Deploy to Test
+      - name: Deploy to Prod
         run: |
           cd databricks_cityride
           databricks bundle deploy -t prod --profile prod
