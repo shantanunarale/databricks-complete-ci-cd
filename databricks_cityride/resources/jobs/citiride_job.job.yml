@@ -2,25 +2,42 @@ resources:
   jobs:
     citiride_job:
       name: citiride_job
+      max_concurrent_runs: 4
       tasks:
         - task_key: process_bronze
           notebook_task:
-            notebook_path: /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com/databricks-complete-ci-cd/databricks_cityride/notebooks/load-bronze
+            notebook_path: ../../notebooks/load-bronze.ipynb
             base_parameters:
               job_id: "{{job.run_id}}"
               job_name: "{{job.name}}"
               job_run_id: "{{job.run_id}}"
             source: WORKSPACE
           environment_key: Default
-      git_source:
-        git_url: https://github.com/shantanunarale/databricks-complete-ci-cd.git
-        git_provider: gitHub
-        git_branch: develop
+        - task_key: process_silver
+          depends_on:
+            - task_key: process_bronze
+          notebook_task:
+            notebook_path: ../../notebooks/load_silver.ipynb
+            base_parameters:
+              job_id: "{{job.id}}"
+              job_name: "{{job.name}}"
+              job_runid: "{{job.run_id}}"
+            source: WORKSPACE
+        - task_key: process_gold
+          depends_on:
+            - task_key: process_silver
+          notebook_task:
+            notebook_path: ../../notebooks/load-gold.ipynb
+            base_parameters:
+              job_id: "{{job.id}}"
+              job_name: "{{job.name}}"
+              job_runid: "{{job.run_id}}"
+            source: WORKSPACE   
       queue:
         enabled: true
       parameters:
         - name: catalog
-          default: ${var.catalog}
+          default: citybike_dev
       environments:
         - environment_key: Default
           spec:
