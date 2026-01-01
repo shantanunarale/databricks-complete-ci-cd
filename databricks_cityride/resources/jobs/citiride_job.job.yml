@@ -1,0 +1,28 @@
+resources:
+  jobs:
+    citiride_job:
+      name: citiride_job
+      tasks:
+        - task_key: process_bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/shantanunarale061_gmail.com#ext#@shantanunarale061gmail.onmicrosoft.com/databricks-complete-ci-cd/databricks_cityride/notebooks/load-bronze
+            base_parameters:
+              job_id: "{{job.run_id}}"
+              job_name: "{{job.name}}"
+              job_run_id: "{{job.run_id}}"
+            source: WORKSPACE
+          environment_key: Default
+      git_source:
+        git_url: https://github.com/shantanunarale/databricks-complete-ci-cd.git
+        git_provider: gitHub
+        git_branch: develop
+      queue:
+        enabled: true
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "4"
+      performance_target: PERFORMANCE_OPTIMIZED
