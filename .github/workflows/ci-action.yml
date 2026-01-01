@@ -1,12 +1,9 @@
 name: Run Unit Test
 
 on:
-  push:
-    branches:
-      - 'feature/**'
   pull_request:
     branches:
-      - 'main'
+      - 'develop'
 
 jobs:
   run_tests:
