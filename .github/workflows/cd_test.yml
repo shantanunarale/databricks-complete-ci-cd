@@ -34,7 +34,7 @@ jobs:
 
       - name: Deploy to Test
         run: |
-          databricks bundle deploy --t test --profile test
+          databricks bundle deploy -t test --profile test
           
         
         
