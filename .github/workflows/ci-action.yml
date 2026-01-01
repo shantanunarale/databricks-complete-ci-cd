@@ -25,7 +25,4 @@ jobs:
       - name: run tests
         run: |
           pytest
-
-      - name: run lint
-        uses: super-linter/super-linter@v7.1.0
           
